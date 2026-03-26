@@ -1,18 +1,25 @@
 :root {
   color-scheme: light;
   font-family: Arial, Helvetica, sans-serif;
+  --border: 1px solid #111;
+}
+
+* {
+  box-sizing: border-box;
 }
 
 body {
   margin: 0;
-  background: #f2f2f2;
+  background: #ececec;
+  color: #111;
 }
 
 .app {
   display: grid;
-  grid-template-columns: 360px 1fr;
+  grid-template-columns: 360px minmax(210mm, 1fr);
   gap: 16px;
   padding: 16px;
+  align-items: start;
 }
 
 .panel {
@@ -23,15 +30,27 @@ body {
   height: fit-content;
 }
 
+.panel h1 {
+  margin: 0 0 8px;
+  font-size: 20px;
+}
+
+.panel p {
+  margin-top: 0;
+  font-size: 13px;
+}
+
 .grid {
   display: grid;
   gap: 8px;
 }
+
 .grid.two {
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(2, 1fr);
 }
+
 .grid.three {
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: repeat(3, 1fr);
 }
 
 label {
@@ -45,6 +64,7 @@ input {
   border: 1px solid #bbb;
   border-radius: 4px;
   padding: 6px;
+  font-size: 13px;
 }
 
 .actions {
@@ -61,28 +81,36 @@ button {
 }
 
 .doc {
+  width: 210mm;
+  min-height: 297mm;
+  margin: 0 auto;
   background: #fff;
-  padding: 10px;
-  border: 1px solid #111;
-  color: #111;
+  border: var(--border);
+  padding: 4mm;
+  font-size: 12px;
+  line-height: 1.25;
+}
+
+.doc header p {
+  margin: 0;
 }
 
 .doc header h2 {
   text-align: center;
-  margin: 16px 0 8px;
+  margin: 10px 0;
+  font-size: 21px;
 }
 
 .box-title {
-  border: 1px solid #111;
+  border: var(--border);
   text-align: center;
   font-weight: 700;
-  padding: 6px;
-  font-size: 34px;
+  padding: 5px;
+  font-size: 17px;
 }
 
 .box-title.small {
   border-top: none;
-  font-size: 31px;
 }
 
 table {
@@ -92,67 +120,64 @@ table {
 
 th,
 td {
-  border: 1px solid #111;
-  padding: 6px;
-  font-size: 28px;
+  border: var(--border);
+  padding: 4px 6px;
+  font-size: 12px;
   text-align: left;
+  vertical-align: top;
 }
 
-.split-title {
+.split-title,
+.split-body,
+.assinaturas {
   display: grid;
   grid-template-columns: 1fr 1fr;
 }
 
 .split-title > div {
-  border: 1px solid #111;
+  border: var(--border);
   padding: 6px;
   text-align: center;
   font-weight: 700;
-  font-size: 40px;
-}
-
-.split-body {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  font-size: 15px;
 }
 
 .split-body > div {
-  border: 1px solid #111;
+  border: var(--border);
   border-top: none;
-  padding: 10px;
-  min-height: 330px;
+  padding: 8px;
+  min-height: 180px;
 }
 
 .split-body p,
 .texto,
 .assinaturas p {
-  font-size: 30px;
-  margin: 4px 0;
+  margin: 2px 0;
+  font-size: 12px;
 }
 
 .texto {
-  border: 1px solid #111;
+  border: var(--border);
   border-top: none;
   padding: 8px;
+  text-align: justify;
 }
 
 .assinaturas {
-  border: 1px solid #111;
+  border: var(--border);
   border-top: none;
-  padding: 10px;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  padding: 8px;
   gap: 24px;
-  min-height: 120px;
+  min-height: 82px;
   align-items: end;
 }
 
 .line {
   border-bottom: 1px solid #111;
-  margin: 28px 0 4px;
+  margin: 20px 0 4px;
 }
 
-@media (max-width: 1200px) {
+@media (max-width: 1300px) {
   .app {
     grid-template-columns: 1fr;
   }
@@ -161,6 +186,15 @@ td {
   .grid.two {
     grid-template-columns: 1fr;
   }
+
+  .doc {
+    width: min(210mm, 100%);
+  }
+}
+
+@page {
+  size: A4 portrait;
+  margin: 8mm;
 }
 
 @media print {
@@ -178,6 +212,10 @@ td {
   }
 
   .doc {
+    width: 100%;
+    min-height: auto;
     border: none;
+    margin: 0;
+    padding: 0;
   }
 }
