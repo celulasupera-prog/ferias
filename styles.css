@@ -1,0 +1,221 @@
+:root {
+  color-scheme: light;
+  font-family: Arial, Helvetica, sans-serif;
+  --border: 1px solid #111;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: #ececec;
+  color: #111;
+}
+
+.app {
+  display: grid;
+  grid-template-columns: 360px minmax(210mm, 1fr);
+  gap: 16px;
+  padding: 16px;
+  align-items: start;
+}
+
+.panel {
+  background: #fff;
+  border: 1px solid #ccc;
+  padding: 12px;
+  border-radius: 8px;
+  height: fit-content;
+}
+
+.panel h1 {
+  margin: 0 0 8px;
+  font-size: 20px;
+}
+
+.panel p {
+  margin-top: 0;
+  font-size: 13px;
+}
+
+.grid {
+  display: grid;
+  gap: 8px;
+}
+
+.grid.two {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.grid.three {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+label {
+  display: flex;
+  flex-direction: column;
+  font-size: 12px;
+  gap: 2px;
+}
+
+input {
+  border: 1px solid #bbb;
+  border-radius: 4px;
+  padding: 6px;
+  font-size: 13px;
+}
+
+.actions {
+  margin-top: 12px;
+  display: flex;
+  gap: 8px;
+}
+
+button {
+  border: 1px solid #222;
+  background: #fff;
+  padding: 8px 12px;
+  cursor: pointer;
+}
+
+.doc {
+  width: 210mm;
+  min-height: 297mm;
+  margin: 0 auto;
+  background: #fff;
+  border: var(--border);
+  padding: 4mm;
+  font-size: 12px;
+  line-height: 1.25;
+}
+
+.doc header p {
+  margin: 0;
+}
+
+.doc header h2 {
+  text-align: center;
+  margin: 10px 0;
+  font-size: 21px;
+}
+
+.box-title {
+  border: var(--border);
+  text-align: center;
+  font-weight: 700;
+  padding: 5px;
+  font-size: 17px;
+}
+
+.box-title.small {
+  border-top: none;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  border: var(--border);
+  padding: 4px 6px;
+  font-size: 12px;
+  text-align: left;
+  vertical-align: top;
+}
+
+.split-title,
+.split-body,
+.assinaturas {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.split-title > div {
+  border: var(--border);
+  padding: 6px;
+  text-align: center;
+  font-weight: 700;
+  font-size: 15px;
+}
+
+.split-body > div {
+  border: var(--border);
+  border-top: none;
+  padding: 8px;
+  min-height: 180px;
+}
+
+.split-body p,
+.texto,
+.assinaturas p {
+  margin: 2px 0;
+  font-size: 12px;
+}
+
+.texto {
+  border: var(--border);
+  border-top: none;
+  padding: 8px;
+  text-align: justify;
+}
+
+.assinaturas {
+  border: var(--border);
+  border-top: none;
+  padding: 8px;
+  gap: 24px;
+  min-height: 82px;
+  align-items: end;
+}
+
+.line {
+  border-bottom: 1px solid #111;
+  margin: 20px 0 4px;
+}
+
+@media (max-width: 1300px) {
+  .app {
+    grid-template-columns: 1fr;
+  }
+
+  .grid.three,
+  .grid.two {
+    grid-template-columns: 1fr;
+  }
+
+  .doc {
+    width: min(210mm, 100%);
+  }
+}
+
+@page {
+  size: A4 portrait;
+  margin: 8mm;
+}
+
+@media print {
+  body {
+    background: #fff;
+  }
+
+  .no-print {
+    display: none;
+  }
+
+  .app {
+    display: block;
+    padding: 0;
+  }
+
+  .doc {
+    width: 100%;
+    min-height: auto;
+    border: none;
+    margin: 0;
+    padding: 0;
+  }
+}
