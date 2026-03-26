@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gerador de Aviso e Recibo de Férias</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="app">
+      <section class="panel no-print">
+        <h1>Gerador de Aviso e Recibo de Férias</h1>
+        <p>
+          Preencha os dados abaixo para montar o documento no mesmo estilo do recibo.
+        </p>
+
+        <form id="form">
+          <div class="grid two">
+            <label>
+              Empresa
+              <input name="empresa" value="MELFI SERVICOS & COMERCIO LTDA" required />
+            </label>
+            <label>
+              CNPJ
+              <input name="cnpj" value="08.989.149/0001-57" required />
+            </label>
+            <label>
+              Empregado
+              <input name="empregado" value="JOSE VAERCIO DE SOUZA" required />
+            </label>
+            <label>
+              Carteira Profissional
+              <input name="carteira" value="00049665" />
+            </label>
+            <label>
+              Série
+              <input name="serie" value="00005" />
+            </label>
+            <label>
+              Cidade
+              <input name="cidade" value="JAGUARIAIVA" />
+            </label>
+          </div>
+
+          <h2>Períodos</h2>
+          <div class="grid three">
+            <label>
+              De Aquisição
+              <input name="aquisicao" value="01/07/2024 A 30/06/2025" />
+            </label>
+            <label>
+              De Gozo das Férias
+              <input name="gozo" value="31/03/2026 A 29/04/2026 = 30 Dias" />
+            </label>
+            <label>
+              De Abono
+              <input name="abonoPeriodo" value="" />
+            </label>
+          </div>
+
+          <h2>Cálculo</h2>
+          <div class="grid three">
+            <label>
+              Salário Base (R$)
+              <input name="salarioBase" type="number" step="0.01" value="5690.37" />
+            </label>
+            <label>
+              Média Horas (R$)
+              <input name="mediaHoras" type="number" step="0.01" value="0" />
+            </label>
+            <label>
+              Média Valores (R$)
+              <input name="mediaValores" type="number" step="0.01" value="0" />
+            </label>
+            <label>
+              Outras Vantagens (R$)
+              <input name="outrasVantagens" type="number" step="0.01" value="0" />
+            </label>
+            <label>
+              % INSS
+              <input name="inss" type="number" step="0.01" value="11.38" />
+            </label>
+            <label>
+              % IRRF
+              <input name="irrf" type="number" step="0.01" value="12.38" />
+            </label>
+          </div>
+
+          <div class="grid two">
+            <label>
+              Data do Aviso
+              <input name="dataAviso" type="date" value="2026-02-27" />
+            </label>
+            <label>
+              Data do Recibo
+              <input name="dataRecibo" type="date" value="2026-03-27" />
+            </label>
+          </div>
+
+          <div class="actions">
+            <button type="button" id="atualizar">Atualizar</button>
+            <button type="button" onclick="window.print()">Imprimir / Salvar PDF</button>
+          </div>
+        </form>
+      </section>
+
+      <section class="doc" id="doc">
+        <header>
+          <p id="oEmpresa"></p>
+          <p><strong>CNPJ: <span id="oCnpj"></span></strong></p>
+          <h2>AVISO E RECIBO DE FÉRIAS</h2>
+        </header>
+
+        <div class="box-title">AVISO PRÉVIO DE FÉRIAS</div>
+        <div class="box-title small">NOTIFICAÇÃO</div>
+
+        <table>
+          <tr>
+            <th>Nome do empregado</th>
+            <th>Número Carteira Profissional</th>
+            <th>Série</th>
+          </tr>
+          <tr>
+            <td id="oEmpregado"></td>
+            <td id="oCarteira"></td>
+            <td id="oSerie"></td>
+          </tr>
+        </table>
+
+        <div class="box-title">PERÍODOS</div>
+        <table>
+          <tr>
+            <th>De Aquisição</th>
+            <th>De Gozo das Férias</th>
+            <th>De Abono</th>
+          </tr>
+          <tr>
+            <td id="oAquisicao"></td>
+            <td id="oGozo"></td>
+            <td id="oAbonoPeriodo"></td>
+          </tr>
+        </table>
+
+        <div class="split-title">
+          <div>BASE PARA CÁLCULO</div>
+          <div>PROVENTOS E DESCONTOS</div>
+        </div>
+
+        <div class="split-body">
+          <div>
+            <p>Salário Base: <span id="oSalarioBase"></span></p>
+            <p>Média Horas: <span id="oMediaHoras"></span></p>
+            <p>Média Valores: <span id="oMediaValores"></span></p>
+            <p>Outras Vantagens: <span id="oOutras"></span></p>
+            <p><strong>TOTAL BASE CÁLCULO: <span id="oTotalBase"></span></strong></p>
+          </div>
+          <div>
+            <p>Férias: <span id="oFerias"></span></p>
+            <p>1/3 das Férias: <span id="oTerco"></span></p>
+            <p><strong>TOTAL DOS PROVENTOS: <span id="oProventos"></span></strong></p>
+            <p>Desconto Previdência: <span id="oInss"></span></p>
+            <p>Desconto IRRF: <span id="oIrrf"></span></p>
+            <p><strong>TOTAL DOS DESCONTOS: <span id="oDescontos"></span></strong></p>
+            <p><strong>TOTAL LÍQUIDO: <span id="oLiquido"></span></strong></p>
+          </div>
+        </div>
+
+        <p class="texto" id="oTextoAviso"></p>
+
+        <div class="assinaturas">
+          <div>
+            <p>CIENTE,</p>
+            <div class="line"></div>
+            <p id="oEmpregadoAss"></p>
+          </div>
+          <div>
+            <p>Data: <span id="oDataAviso"></span></p>
+            <div class="line"></div>
+            <p id="oEmpresaAss"></p>
+          </div>
+        </div>
+
+        <div class="box-title" style="margin-top: 16px">RECIBO DE FÉRIAS</div>
+
+        <p class="texto" id="oTextoRecibo"></p>
+
+        <div class="assinaturas">
+          <div>
+            <p>Data: <span id="oDataRecibo"></span></p>
+            <p id="oCidade"></p>
+          </div>
+          <div>
+            <div class="line"></div>
+            <p>CNPJ: <span id="oCnpjAss"></span></p>
+            <p id="oEmpregadoRec"></p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>
